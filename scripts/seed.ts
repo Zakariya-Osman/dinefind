@@ -27,9 +27,63 @@ async function seed() {
       kidFriendly: false,
       dietary: ["gluten-free"],
     },
+    {
+      name: "The Veggie Patch",
+      costTier: 2,
+      kidFriendly: false,
+      dietary: ["vegetarian"],
+    },
+    {
+      name: "Tandoori Town",
+      costTier: 3,
+      kidFriendly: true,
+      dietary: ["halal"],
+    },
+    {
+      name: "Pasta Paradise",
+      costTier: 2,
+      kidFriendly: true,
+      dietary: [],
+    },
+    {
+      name: "Burger Barn",
+      costTier: 1,
+      kidFriendly: true,
+      dietary: [],
+    },
+    {
+      name: "Ocean Catch",
+      costTier: 3,
+      kidFriendly: false,
+      dietary: ["gluten-free"],
+    },
+    {
+      name: "Curry Kingdom",
+      costTier: 2,
+      kidFriendly: true,
+      dietary: ["halal", "vegan"],
+    },
+    {
+      name: "Sweet & Salty Café",
+      costTier: 2,
+      kidFriendly: true,
+      dietary: [],
+    },
+    {
+      name: "Grill Master",
+      costTier: 3,
+      kidFriendly: false,
+      dietary: [],
+    },
+    {
+      name: "Sunrise Smoothies",
+      costTier: 1,
+      kidFriendly: true,
+      dietary: ["vegan", "gluten-free"],
+    },
   ]);
 
-  console.log("✅ Database seeded!");
+  console.log("✅ Database seeded with sample restaurants!");
   process.exit();
 }
 
