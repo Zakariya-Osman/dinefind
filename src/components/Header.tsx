@@ -19,7 +19,7 @@ export default function Header({
     <header className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
       <div className="flex w-full justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-800 tracking-tight">
-          🍽️ DineFind
+          DineFind
         </h1>
 
         <div className="flex gap-4 items-center">
