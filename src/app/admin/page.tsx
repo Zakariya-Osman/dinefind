@@ -34,27 +34,23 @@ export default async function AdminPage() {
 
   return (
     <main className="max-w-4xl mx-auto p-6 space-y-6 text-black dark:text-white">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-        Admin Dashboard
-      </h1>
+      {/* Header with "Back to Home" */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          Admin Dashboard
+        </h1>
+        <a
+          href="/"
+          className="inline-block bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition text-sm"
+        >
+          ← Back to Home
+        </a>
+      </div>
 
-      <RestaurantForm
-        onSubmit={async (data) => {
-          "use server";
-          const baseUrl =
-            process.env.NODE_ENV === "production"
-              ? process.env.NEXTAUTH_URL
-              : process.env.LOCAL_API_URL;
+      {/* Add Restaurant Form */}
+      <RestaurantForm />
 
-          const res = await fetch(`${baseUrl}/api/admin/restaurants`, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" },
-          });
-          if (res.ok) location.reload();
-        }}
-      />
-
+      {/* List of Restaurants */}
       <AdminRestaurantList restaurants={restaurants} />
     </main>
   );
