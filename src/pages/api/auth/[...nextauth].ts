@@ -1,11 +1,11 @@
-import type { AuthOptions, SessionStrategy } from "next-auth";
+import type { AuthOptions } from "next-auth";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
 import { dbConnect } from "@/lib/db";
 import User from "@/lib/User";
+import bcrypt from "bcryptjs";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -13,17 +13,17 @@ export const authOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: any) {
+      async authorize(credentials) {
+        console.log("🧪 Authorizing:", credentials?.email);
         await dbConnect();
-        const user = await User.findOne({ email: credentials.email });
 
+        const user = await User.findOne({ email: credentials?.email });
         if (!user) throw new Error("No user found");
 
         const isValid = await bcrypt.compare(
-          credentials.password,
+          credentials!.password,
           user.hashedPassword
         );
-
         if (!isValid) throw new Error("Wrong password");
 
         return {
@@ -34,18 +34,18 @@ export const authOptions = {
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
-    async jwt({ token, user }: { token: any; user?: any }) {
+    async jwt({ token, user }) {
       if (user) token.role = user.role;
       return token;
     },
-    async session({ session, token }: { session: any; token: any }) {
+    async session({ session, token }) {
       session.role = token.role;
       return session;
     },
-  },
-  session: {
-    strategy: "jwt" as SessionStrategy,
   },
 };
 

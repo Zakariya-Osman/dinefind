@@ -2,26 +2,11 @@
 
 import { useState } from "react";
 
-type RestaurantFormProps = {
-  onSubmit: (formData: any) => void;
-  initialData?: {
-    name: string;
-    costTier: number;
-    kidFriendly: boolean;
-    dietary: string[];
-  };
-};
-
-export default function RestaurantForm({
-  onSubmit,
-  initialData,
-}: RestaurantFormProps) {
-  const [name, setName] = useState(initialData?.name || "");
-  const [costTier, setCostTier] = useState(initialData?.costTier || 1);
-  const [kidFriendly, setKidFriendly] = useState(
-    initialData?.kidFriendly || false
-  );
-  const [dietary, setDietary] = useState<string[]>(initialData?.dietary || []);
+export default function RestaurantForm() {
+  const [name, setName] = useState("");
+  const [costTier, setCostTier] = useState(1);
+  const [kidFriendly, setKidFriendly] = useState(false);
+  const [dietary, setDietary] = useState<string[]>([]);
 
   const handleDietaryChange = (tag: string) => {
     setDietary((prev) =>
@@ -29,13 +14,35 @@ export default function RestaurantForm({
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ name, costTier, kidFriendly, dietary });
-    setName("");
-    setCostTier(1);
-    setKidFriendly(false);
-    setDietary([]);
+
+    const newRestaurant = {
+      name,
+      costTier,
+      kidFriendly,
+      dietary,
+    };
+
+    const res = await fetch("/api/admin/restaurants", {
+      method: "POST",
+      body: JSON.stringify(newRestaurant),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const result = await res.json();
+    console.log("📦 API Response:", result);
+
+    if (res.ok) {
+      alert("✅ Restaurant added!");
+      setName("");
+      setCostTier(1);
+      setKidFriendly(false);
+      setDietary([]);
+      location.reload();
+    } else {
+      alert("❌ Failed to add restaurant.");
+    }
   };
 
   return (
@@ -43,7 +50,7 @@ export default function RestaurantForm({
       onSubmit={handleSubmit}
       className="bg-white dark:bg-gray-900 p-4 rounded shadow space-y-4 mb-6 text-black dark:text-white border dark:border-gray-700"
     >
-      <h2 className="text-xl font-bold">Add / Edit Restaurant</h2>
+      <h2 className="text-xl font-bold">Add Restaurant</h2>
 
       <input
         type="text"
@@ -92,7 +99,7 @@ export default function RestaurantForm({
         type="submit"
         className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
       >
-        {initialData ? "Update" : "Add"} Restaurant
+        Add Restaurant
       </button>
     </form>
   );

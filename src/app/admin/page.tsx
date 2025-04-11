@@ -6,9 +6,13 @@ import Restaurant from "@/lib/Restaurant";
 import { dbConnect } from "@/lib/db";
 
 export default async function AdminPage() {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as any;
+
+  console.log("🧠 SESSION on /admin:", session);
 
   if (!session || session.role !== "admin") {
+    console.log("🔒 Blocked access. Session:", session);
+
     return (
       <main className="p-8 text-black dark:text-white">
         <h1 className="text-xl font-bold">Access Denied</h1>
