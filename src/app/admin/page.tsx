@@ -37,7 +37,12 @@ export default async function AdminPage() {
       <RestaurantForm
         onSubmit={async (data) => {
           "use server";
-          const res = await fetch("/api/admin/restaurants", {
+          const baseUrl =
+            process.env.NODE_ENV === "production"
+              ? process.env.NEXTAUTH_URL
+              : process.env.LOCAL_API_URL;
+
+          const res = await fetch(`${baseUrl}/api/admin/restaurants`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" },
