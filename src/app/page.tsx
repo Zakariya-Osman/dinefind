@@ -56,9 +56,9 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-100 py-10 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header with Sign In/Out */}
+    <main className="min-h-screen bg-gradient-to-b from-white to-gray-100 flex flex-col justify-between">
+      <div className="max-w-6xl mx-auto w-full px-4 pt-10 pb-6">
+        {/* Inline Header */}
         <header className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
           <div className="flex w-full justify-between items-center">
             <h1 className="text-3xl font-bold text-gray-800 tracking-tight">
@@ -170,6 +170,11 @@ export default function HomePage() {
           </div>
         )}
       </div>
+
+      {/* Inline Footer */}
+      <footer className="bg-white border-t text-sm text-center text-gray-500 py-4 mt-10">
+        © {new Date().getFullYear()} DineFind. Made for foodlovers.
+      </footer>
     </main>
   );
 }
