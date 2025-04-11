@@ -96,7 +96,7 @@ export default function HomePage() {
           {/* Search Bar */}
           <form
             onSubmit={handleSearch}
-            className="flex w-full sm:w-auto items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border focus-within:ring-2 ring-blue-200"
+            className="flex w-full sm:w-auto items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border focus-within:ring-2 ring-blue-200 text-gray-800"
           >
             <Search className="text-gray-400" size={18} />
             <input
