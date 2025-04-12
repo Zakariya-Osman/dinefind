@@ -24,7 +24,13 @@ export default function HomePage() {
     try {
       const params = new URLSearchParams();
       if (selectedTiers.length > 0) {
-        params.set("cost", selectedTiers.join(","));
+        const expandedTiers = new Set<number>();
+        selectedTiers.forEach((tier) => {
+          for (let t = 1; t <= tier; t++) {
+            expandedTiers.add(t);
+          }
+        });
+        params.set("cost", Array.from(expandedTiers).sort().join(","));
       }
       if (search.trim()) {
         params.set("q", search.trim());
