@@ -8,7 +8,7 @@ import { dbConnect } from "@/lib/db";
 export default async function AdminPage() {
   const session = (await getServerSession(authOptions)) as any;
 
-  console.log("🧠 SESSION on /admin:", session);
+  console.log(" SESSION on /admin:", session);
 
   if (!session || session.role !== "admin") {
     console.log("🔒 Blocked access. Session:", session);
